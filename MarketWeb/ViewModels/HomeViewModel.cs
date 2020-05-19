@@ -10,5 +10,6 @@ namespace MarketWeb.ViewModels
     public class HomeViewModel
     {
         public IEnumerable<Product> ProductsOfTheWeak { get; set; }
+        public string SearchQuery { get; set; }
     }
 }

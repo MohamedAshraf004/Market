@@ -20,7 +20,7 @@ namespace MarketWeb.Repositories
             this._db = db;
         }
         public IEnumerable<Product> AllProduct => _db.Products;
-        public IEnumerable<Product> ProductOfTheWeek => _db.Products.Include(c => c.Brand)
+        public IEnumerable<Product> ProductOfTheWeek => _db.Products/*.Include(c => c.Brand)*/
                         .Include(c => c.Category).Where(p => p.IsProductOfTheWeek && p.Quantity > 0).ToList();
 
 
@@ -36,16 +36,16 @@ namespace MarketWeb.Repositories
                 var mainCategory = Category.Trim();
                 collection = collection.Where(a => a.Category.Name == mainCategory);
             }
-            if (!string.IsNullOrWhiteSpace(Brand))
-            {
-                var mainBrand = Brand.Trim();
-                collection = collection.Where(a => a.Brand.BrandName == mainBrand);
-            }
+            //if (!string.IsNullOrWhiteSpace(Brand))
+            //{
+            //    var mainBrand = Brand.Trim();
+            //    collection = collection.Where(a => a.Brand.BrandName == mainBrand);
+            //}
             if (!string.IsNullOrWhiteSpace(SearchQuery))
             {
                 var searchQuery = SearchQuery.Trim();
                 collection = collection.Where(c => c.Category.Name.ToLower().Contains(searchQuery.ToLower())
-                || c.Brand.BrandName.ToLower().Contains(searchQuery.ToLower())
+                //|| c.Brand.BrandName.ToLower().Contains(searchQuery.ToLower())
                 || c.Name.ToLower().Contains(searchQuery.ToLower()));
             }
             return await collection.ToListAsync();

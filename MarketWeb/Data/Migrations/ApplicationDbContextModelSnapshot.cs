@@ -19,23 +19,6 @@ namespace MarketWeb.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Core.Models.Brand", b =>
-                {
-                    b.Property<int>("BrandId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("BrandName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.HasKey("BrandId");
-
-                    b.ToTable("Brands");
-                });
-
             modelBuilder.Entity("Core.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -43,18 +26,30 @@ namespace MarketWeb.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BrandId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BrandId");
-
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Laptops"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "TVS"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Phones"
+                        });
                 });
 
             modelBuilder.Entity("Core.Models.Coupon", b =>
@@ -115,22 +110,60 @@ namespace MarketWeb.Data.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("ProductStatus")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubCategoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("SubCategoryId");
-
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Description = "Awesome Laptop!",
+                            Image = "HP.PNG",
+                            IsProductOfTheWeek = true,
+                            Name = "HP ProBook",
+                            Price = 152.94999999999999,
+                            Quantity = 6
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            Description = "Awesome Laptop!",
+                            Image = "Mac.JPG",
+                            IsProductOfTheWeek = true,
+                            Name = "Mac Book",
+                            Price = 252.94999999999999,
+                            Quantity = 6
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 3,
+                            Description = "Awesome Phone!",
+                            Image = "Phone.JPG",
+                            IsProductOfTheWeek = true,
+                            Name = "IPhone11 Pro",
+                            Price = 175.94999999999999,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 2,
+                            Description = "Awesome TV!",
+                            Image = "TV.JPG",
+                            IsProductOfTheWeek = true,
+                            Name = "Mac Tv",
+                            Price = 202.94999999999999,
+                            Quantity = 6
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -333,27 +366,12 @@ namespace MarketWeb.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Core.Models.Category", b =>
-                {
-                    b.HasOne("Core.Models.Brand", "Brand")
-                        .WithMany("Categories")
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Core.Models.Product", b =>
                 {
                     b.HasOne("Core.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Models.Brand", "Brand")
-                        .WithMany("Products")
-                        .HasForeignKey("SubCategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 

@@ -9,6 +9,24 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20200519130945_AddTables.cs" />
     <Compile Remove="Data\Migrations\20200519130945_AddTables.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200519131706_AddTables.cs" />
+    <Compile Remove="Data\Migrations\20200519131706_AddTables.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200519160305_AddQuantityAndProductOFTheWeekProps.cs" />
+    <Compile Remove="Data\Migrations\20200519160305_AddQuantityAndProductOFTheWeekProps.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200519181800_ModifyRelations.cs" />
+    <Compile Remove="Data\Migrations\20200519181800_ModifyRelations.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200519182652_CreateTablesSchema.cs" />
+    <Compile Remove="Data\Migrations\20200519182652_CreateTablesSchema.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200519183125_CreateTablesSchema.cs" />
+    <Compile Remove="Data\Migrations\20200519183125_CreateTablesSchema.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200519183300_CreateTablesSchema.cs" />
+    <Compile Remove="Data\Migrations\20200519183300_CreateTablesSchema.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200519183434_CreateTablesSchema.cs" />
+    <Compile Remove="Data\Migrations\20200519183434_CreateTablesSchema.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200519183554_CreateTablesSchema.cs" />
+    <Compile Remove="Data\Migrations\20200519183554_CreateTablesSchema.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200519184330_CreateTablesSchema.cs" />
+    <Compile Remove="Data\Migrations\20200519184330_CreateTablesSchema.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

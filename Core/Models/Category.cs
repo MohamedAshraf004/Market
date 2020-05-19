@@ -17,9 +17,9 @@ namespace Core.Models
         [Required]
         public string Name { get; set; }
 
-        [ForeignKey("Brand")]
-        public int BrandId { get; set; }
-        public virtual Brand Brand { get; set; }
+        //[ForeignKey("Brand")]
+        //public int BrandId { get; set; }
+        //public virtual Brand Brand { get; set; }
 
         public virtual List<Product> Products { get; set; }
 

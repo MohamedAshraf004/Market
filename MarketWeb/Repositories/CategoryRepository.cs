@@ -19,5 +19,10 @@ namespace MarketWeb.Repositories
             this._dbContext = dbContext;
         }
         public async Task<IEnumerable<Category>> AllCategories() =>await _dbContext.Categories.ToListAsync();
+
+        public async Task<Category> GetCategoryByName(string name)
+        {
+            return await _dbContext.Categories.FirstOrDefaultAsync(c=>c.Name==name);
+        }
     }
 }

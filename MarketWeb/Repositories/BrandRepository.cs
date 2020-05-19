@@ -18,8 +18,12 @@ namespace MarketWeb.Repositories
         {
             this._dbContext = dbContext;
         }
-        public async Task<IEnumerable<Brand>> AllBrands() => await _dbContext.Brands.ToListAsync();
-        public async Task<Brand> GetBrandById(int id) => await _dbContext.Brands.FindAsync(id);
+        //public async Task<IEnumerable<Brand>> AllBrands() => await _dbContext.Brands.ToListAsync();
+        //public async Task<Brand> GetBrandById(int id) => await _dbContext.Brands.FindAsync(id);
 
+        //public async Task<Brand> GetBrandByName(string name)
+        //{
+        //    return await _dbContext.Brands.FirstOrDefaultAsync(n=>n.BrandName==name);
+        //}
     }
 }

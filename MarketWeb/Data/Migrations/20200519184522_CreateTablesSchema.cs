@@ -3,21 +3,21 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MarketWeb.Data.Migrations
 {
-    public partial class AddTables : Migration
+    public partial class CreateTablesSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Brands",
+                name: "Categories",
                 columns: table => new
                 {
-                    BrandId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BrandName = table.Column<string>(maxLength: 50, nullable: false)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Brands", x => x.BrandId);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -39,26 +39,6 @@ namespace MarketWeb.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: false),
-                    BrandId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Categories_Brands_BrandId",
-                        column: x => x.BrandId,
-                        principalTable: "Brands",
-                        principalColumn: "BrandId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -68,9 +48,9 @@ namespace MarketWeb.Data.Migrations
                     Description = table.Column<string>(nullable: true),
                     Image = table.Column<string>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false),
-                    SubCategoryId = table.Column<int>(nullable: false),
                     Price = table.Column<double>(nullable: false),
-                    ProductStatus = table.Column<int>(nullable: false)
+                    IsProductOfTheWeek = table.Column<bool>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,27 +61,27 @@ namespace MarketWeb.Data.Migrations
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Products_Brands_SubCategoryId",
-                        column: x => x.SubCategoryId,
-                        principalTable: "Brands",
-                        principalColumn: "BrandId");
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Categories_BrandId",
+            migrationBuilder.InsertData(
                 table: "Categories",
-                column: "BrandId");
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1, "Laptops" });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 2, "TVS" });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 3, "Phones" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_SubCategoryId",
-                table: "Products",
-                column: "SubCategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -114,9 +94,6 @@ namespace MarketWeb.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Brands");
         }
     }
 }

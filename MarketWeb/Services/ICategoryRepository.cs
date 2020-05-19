@@ -10,5 +10,7 @@ namespace MarketWeb.Services
     public interface ICategoryRepository
     {
         Task<IEnumerable<Category>> AllCategories();
+        Task<Category> GetCategoryByName(string name);
+
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MarketWeb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200519131706_AddTables")]
-    partial class AddTables
+    [Migration("20200519184522_CreateTablesSchema")]
+    partial class CreateTablesSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,23 +21,6 @@ namespace MarketWeb.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Core.Models.Brand", b =>
-                {
-                    b.Property<int>("BrandId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("BrandName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.HasKey("BrandId");
-
-                    b.ToTable("Brands");
-                });
-
             modelBuilder.Entity("Core.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -45,18 +28,30 @@ namespace MarketWeb.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BrandId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BrandId");
-
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Laptops"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "TVS"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Phones"
+                        });
                 });
 
             modelBuilder.Entity("Core.Models.Coupon", b =>
@@ -107,6 +102,9 @@ namespace MarketWeb.Data.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsProductOfTheWeek")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -114,17 +112,12 @@ namespace MarketWeb.Data.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("ProductStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubCategoryId")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("SubCategoryId");
 
                     b.ToTable("Products");
                 });
@@ -329,27 +322,12 @@ namespace MarketWeb.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Core.Models.Category", b =>
-                {
-                    b.HasOne("Core.Models.Brand", "Brand")
-                        .WithMany("Categories")
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Core.Models.Product", b =>
                 {
                     b.HasOne("Core.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Models.Brand", "Brand")
-                        .WithMany("Products")
-                        .HasForeignKey("SubCategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 

@@ -16,6 +16,9 @@ namespace MarketWeb.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories{ get; set; }
         public DbSet<Coupon> Coupons{ get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems{ get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -30,7 +33,7 @@ namespace MarketWeb.Data
             {
                 Id = 1,
                 Name = "HP ProBook",
-                Price = 152.95,
+                Price = 152.95M,
                 Description = "Awesome Laptop!",
                 CategoryId = 1,
                 Quantity = 6,
@@ -41,7 +44,7 @@ namespace MarketWeb.Data
             {
                 Id = 2,
                 Name = "Mac Book",
-                Price = 252.95,
+                Price = 252.95M,
                 Description = "Awesome Laptop!",
                 CategoryId = 1,
                 Quantity = 6,
@@ -51,7 +54,7 @@ namespace MarketWeb.Data
             {
                 Id = 3,
                 Name = "IPhone11 Pro",
-                Price = 175.95,
+                Price = 175.95M,
                 Description = "Awesome Phone!",
                 CategoryId = 3,
                 Quantity = 3,
@@ -62,7 +65,7 @@ namespace MarketWeb.Data
             {
                 Id = 4,
                 Name = "Mac Tv",
-                Price = 202.95,
+                Price = 202.95M,
                 Description = "Awesome TV!",
                 CategoryId = 2,
                 Quantity = 6,

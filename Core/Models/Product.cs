@@ -18,7 +18,7 @@ namespace Core.Models
         public virtual Category Category { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = " Price should be greater than ${1}")]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         public bool IsProductOfTheWeek { get; set; }
         public int Quantity { get; set; }
 
